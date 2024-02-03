@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -19,16 +20,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import coil.ImageLoader
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.onestorecorp.gaa.prography.data.model.Photo
 import com.onestorecorp.gaa.prography.designsystem.component.PRHeader
@@ -94,16 +100,30 @@ fun RecentImageScreen(
     ) {
         item(span = StaggeredGridItemSpan.FullLine) { PRHeader(text = "최신 이미지") }
         items(photoPagingItems.itemCount) { item ->
-
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(photoPagingItems[item]?.url)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(RoundedCornerShape(12.dp))
-            )
+            Box {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(photoPagingItems[item]?.url)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(12.dp))
+                )
+//                Image(
+//                    painter = rememberAsyncImagePainter(model = photoPagingItems[item]?.url ?: "",
+//                    ),
+//                    contentDescription = null,
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier.fillMaxSize()
+//                )
+                Text(
+                    modifier = Modifier.align(Alignment.BottomStart),
+                    text = photoPagingItems[item]?.slug ?: ""
+                )
+            }
         }
     }
 

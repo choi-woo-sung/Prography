@@ -1,4 +1,4 @@
-package com.ddd.filmo.core.module
+package com.onestorecorp.gaa.prography.module
 
 import okhttp3.Interceptor
 import okhttp3.Response

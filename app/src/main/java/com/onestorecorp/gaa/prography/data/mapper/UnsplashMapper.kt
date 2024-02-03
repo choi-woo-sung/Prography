@@ -8,7 +8,8 @@ fun UnsplashResponse.toDomain(): Photo {
     return Photo(
         id = this.id,
         description = this.description ?: "",
-        url = this.urls.thumb
+        url = this.urls.thumb,
+        slug = this.slug
     )
 }
 
