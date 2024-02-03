@@ -8,5 +8,5 @@ object PRIcons {
     val House = R.drawable.ic_house
     val Bookmark = R.drawable.ic_bookmark
     val Download = R.drawable.ic_download
-    val Download = R.drawable.ic_download
+    val Information = R.drawable.ic_information
 }
