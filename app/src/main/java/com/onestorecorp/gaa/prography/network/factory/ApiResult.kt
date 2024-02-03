@@ -32,7 +32,7 @@ inline fun <T> handlingNetwork(action: (() -> ApiResult<T>)): T {
         is ApiResult.Success -> (action.invoke() as ApiResult.Success).data
         is ApiResult.Failure.HttpFailure -> throw Exception()
         is ApiResult.Failure.NetworkFailure -> throw Exception()
-        is ApiResult.Failure.UnknownFailure -> throw Exception()
+        is ApiResult.Failure.UnknownFailure -> throw Exception((action.invoke() as ApiResult.Failure.UnknownFailure).exception)
     }
 }
 

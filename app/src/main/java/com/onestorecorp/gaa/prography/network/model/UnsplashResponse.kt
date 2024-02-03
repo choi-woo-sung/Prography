@@ -16,9 +16,6 @@ data class UnsplashResponse(
 
     val description: String? = null,
 
-    @SerialName("alt_description")
-    val altDescription: String,
-
     val urls: Urls,
     val likes: Long,
 

@@ -13,7 +13,7 @@ class MainViewModel @Inject constructor(
     private val photoRepository: PhotoRepository
 ) : ViewModel() {
 
-    private val photoStateFlow = photoRepository.fetchPhotoList().cachedIn(viewModelScope)
+     val photoStateFlow = photoRepository.fetchPhotoList().cachedIn(viewModelScope)
 
 
 

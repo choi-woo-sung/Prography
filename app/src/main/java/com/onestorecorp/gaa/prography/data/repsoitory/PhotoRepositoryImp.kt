@@ -11,13 +11,12 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PhotoRepositoryImp @Inject constructor(
-    private val photoPagingSource: PhotoPagingSource,
     private val photoRemoteSource: PhotoRemoteSource
 ) : PhotoRepository {
     override fun fetchPhotoList(): Flow<PagingData<Photo>> = Pager(
         config = PagingConfig(pageSize = 10, prefetchDistance = 2),
         pagingSourceFactory = {
-            photoPagingSource
+            PhotoPagingSource(photoRemoteSource)
         }
     ).flow
 

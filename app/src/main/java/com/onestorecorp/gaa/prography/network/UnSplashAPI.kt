@@ -9,6 +9,7 @@ interface UnSplashAPI {
 
     @GET("/photos")
     suspend fun fetchPhotoList(
+        @Query("client_id") clientId: String = "u35wmblqV2tnoUNq74jUnKJPh5B_Z-au-qMhj8oGS8w",
         @Query("page") page: Int = 1,
     ): ApiResult<List<UnsplashResponse>>
 
