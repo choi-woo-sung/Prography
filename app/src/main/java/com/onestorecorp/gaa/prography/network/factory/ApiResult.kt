@@ -1,5 +1,7 @@
 package com.ddd.filmo.network.factory
 
+import retrofit2.HttpException
+
 sealed interface ApiResult<out T> {
     data class Success<out T>(val data: T) : ApiResult<T>
 
@@ -30,7 +32,7 @@ fun <T> ApiResult<T>.handlingNetwork(): T {
 inline fun <T> handlingNetwork(action: (() -> ApiResult<T>)): T {
     return when (action.invoke()) {
         is ApiResult.Success -> (action.invoke() as ApiResult.Success).data
-        is ApiResult.Failure.HttpFailure -> throw Exception()
+        is ApiResult.Failure.HttpFailure -> throw Exception((action.invoke() as ApiResult.Failure.HttpFailure).errorBody)
         is ApiResult.Failure.NetworkFailure -> throw Exception()
         is ApiResult.Failure.UnknownFailure -> throw Exception((action.invoke() as ApiResult.Failure.UnknownFailure).exception)
     }

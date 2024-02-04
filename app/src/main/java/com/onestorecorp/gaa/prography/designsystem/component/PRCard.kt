@@ -2,10 +2,12 @@ package com.onestorecorp.gaa.prography.designsystem.component
 
 import android.widget.ImageButton
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,14 +31,16 @@ import com.onestorecorp.gaa.prography.ui.theme.Gray60
 @Composable
 fun PRCard(url: String) {
     Card {
-//        AsyncImage(model = url, contentDescription = "")
+        AsyncImage(model = url, contentDescription = "",
+            modifier = Modifier.fillMaxWidth().height(421.dp).background(color = Color.Black),
+            contentScale = ContentScale.FillWidth)
         PRCardBottom()
     }
 }
 
 @Composable
 private fun PRCardBottom(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     closeButtonClicked: () -> Unit = {},
     bookmarkButtonClicked: () -> Unit = {},
     informationButtonClicked: () -> Unit = {}
@@ -43,7 +48,7 @@ private fun PRCardBottom(
     Row(
         modifier
             .fillMaxWidth()
-            .padding(horizontal = 43.dp),
+            .padding(horizontal = 43.dp , vertical = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -95,8 +100,8 @@ private fun PRCardBottom(
 
 @Preview
 @Composable
-private fun PRCardPreview() {
+private fun PRCardButtonPreview() {
     Surface(modifier = Modifier.fillMaxSize()) {
-        PRCard(url = "https://images.unsplash.com/photo-1634170380000-3e3e3e3e3e3e")
+        PRCardBottom()
     }
 }

@@ -16,5 +16,12 @@ interface UnSplashAPI {
     @GET("/photos")
     suspend fun fetchPhotoDetail(
         @Query("id") id: String,
+        @Query("client_id") clientId: String = "u35wmblqV2tnoUNq74jUnKJPh5B_Z-au-qMhj8oGS8w",
     ): ApiResult<UnsplashResponse>
+
+    @GET("/photos/random")
+    suspend fun fetchPhotoRandom(
+        @Query("count") count: Int = 10,
+        @Query("client_id") clientId: String = "u35wmblqV2tnoUNq74jUnKJPh5B_Z-au-qMhj8oGS8w",
+    ): ApiResult<List<UnsplashResponse> >
 }

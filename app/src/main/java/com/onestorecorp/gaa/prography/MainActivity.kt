@@ -38,6 +38,7 @@ import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import com.onestorecorp.gaa.prography.data.model.Photo
 import com.onestorecorp.gaa.prography.designsystem.component.PRHeader
+import com.onestorecorp.gaa.prography.ui.SnapScreen
 import com.onestorecorp.gaa.prography.ui.theme.PrographyTheme
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +56,8 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-                        MainScreen()
+//                        MainScreen()
+                        SnapScreen()
                     }
                 }
             }
@@ -112,13 +114,6 @@ fun RecentImageScreen(
                         .fillMaxSize()
                         .clip(RoundedCornerShape(12.dp))
                 )
-//                Image(
-//                    painter = rememberAsyncImagePainter(model = photoPagingItems[item]?.url ?: "",
-//                    ),
-//                    contentDescription = null,
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier.fillMaxSize()
-//                )
                 Text(
                     modifier = Modifier.align(Alignment.BottomStart),
                     text = photoPagingItems[item]?.slug ?: ""

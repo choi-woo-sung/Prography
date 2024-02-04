@@ -1,10 +1,12 @@
 package com.onestorecorp.gaa.prography.ui
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -17,15 +19,33 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.onestorecorp.gaa.prography.SnapViewModel
+import com.onestorecorp.gaa.prography.designsystem.component.PRCard
 import kotlin.math.roundToInt
 
-//
+@Composable
+fun SnapScreen(snapViewModel: SnapViewModel = viewModel()) {
+    //withListCycle로 하는게 맞는데 시간이 없음.
+    val photoList =  snapViewModel.photoStateFlow
+    Box {
+        photoList.reversed().forEachIndexed() {index , it ->
+            SwipeableCard (
+                onSwipeRight = {
+                    
+                }
+            ){
+                PRCard(url = it.url)
+            }
+        }
+    }
+}
 
 @Composable
 fun SwipeableCard(
     onSwipeLeft: () -> Unit = {},
     onSwipeRight: () -> Unit = {},
-    swipeThreshold: Float = 400f,
+    swipeThreshold: Float = 500f,
     sensitivityFactor: Float = 3f,
     content: @Composable () -> Unit
 ) {
@@ -40,8 +60,9 @@ fun SwipeableCard(
                 detectHorizontalDragGestures(onDragEnd = {
                     offset = 0f
                 }) { change, dragAmount ->
-                    // Swipe logic
+
                     offset += (dragAmount / density) * sensitivityFactor
+                    Log.d("swipeOffset" , offset.toString())
                     when {
                         offset > swipeThreshold -> {
                             dismiss = true
@@ -57,7 +78,7 @@ fun SwipeableCard(
                 }
             }
             .graphicsLayer(
-                alpha = 10f - animateFloatAsState(if (dismiss) 1f else 0f).value,
+                alpha = 1f - animateFloatAsState(if (dismiss) 1f else 0f).value,
                 rotationZ = animateFloatAsState(offset / 50).value
             )
     ) {

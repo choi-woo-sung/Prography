@@ -29,6 +29,7 @@ data class UnsplashResponse(
 @Serializable
 data class Urls(
     val raw: String,
+    //todo 시간이 좀더 있었다면 화면 크기에 따라 별개로 url 작업 했을것.
     val full: String,
     val regular: String,
     val small: String,

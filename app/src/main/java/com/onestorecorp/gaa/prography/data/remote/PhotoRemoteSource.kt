@@ -10,6 +10,8 @@ interface PhotoRemoteSource {
     suspend fun fetchPhotoList(page: Int): List<UnsplashResponse>
 
     suspend fun fetchPhotoDetail(id: String): UnsplashResponse
+
+    suspend fun fetchRandomPhotoList(): List<UnsplashResponse>
 }
 
 class PhotoRemoteSourceImp @Inject constructor(
@@ -20,6 +22,10 @@ class PhotoRemoteSourceImp @Inject constructor(
     }
 
     override suspend fun fetchPhotoDetail(id: String): UnsplashResponse {
-        return handlingNetwork { unSplashAPI.fetchPhotoDetail(id) }
+        return handlingNetwork { unSplashAPI.fetchPhotoDetail(id=id) }
+    }
+
+    override suspend fun fetchRandomPhotoList(): List<UnsplashResponse> {
+        return handlingNetwork { unSplashAPI.fetchPhotoRandom() }
     }
 }
