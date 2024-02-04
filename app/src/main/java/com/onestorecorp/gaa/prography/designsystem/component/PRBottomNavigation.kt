@@ -39,6 +39,5 @@ private fun PRBottomNavigationPreview() {
             onClick = {},
             selected = false
         )
-
     }
 }

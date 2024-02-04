@@ -30,4 +30,8 @@ class SnapViewModel @Inject constructor(
         val result = photoRepository.fetchRandomPhotoList()
         photoStateFlow.addAll(result)
     }
+
+    fun removeCard() = viewModelScope.launch {
+        photoStateFlow.removeAt(0)
+    }
 }
